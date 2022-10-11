@@ -5,7 +5,7 @@ import torch
 import cv2
 import pytesseract
 import fastwer
-import easyocr
+#import easyocr
 
 
 input_dir = 'test/'
@@ -48,6 +48,7 @@ for index, f in enumerate(files):
 
     print(f)
     print(text)
+    #print(ref[index])
 
     cer = fastwer.score_sent(text, ref[index], char_level=True)
     wer = fastwer.score_sent(text, ref[index], char_level=False)
