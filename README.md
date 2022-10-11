@@ -40,7 +40,7 @@ JPG: 6, webp: 1).
 
 Обучение yolo v4:
 
-[img](https://github.com/Demin132132/dl_1_26_car_license_plate_recognition/blob/test_/dl_1_26_car_license_plate_recognition/raw/test_/img/img.jpg)
+[img](https://github.com/Demin132132/dl_1_26_car_license_plate_recognition/raw/test_/img/img.jpg)
 
 Результаты обучеения представлены в таблице.
 
