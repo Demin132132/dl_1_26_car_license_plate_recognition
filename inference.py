@@ -5,14 +5,12 @@ import torch
 import cv2
 import pytesseract
 import fastwer
-#import easyocr
 
 
 input_dir = 'test/'
 output_dir = 'outputs/'
 model_path = 'models/best.pt'
 
-# reader = easyocr.Reader(['ru'])
 
 files = [f for f in listdir(input_dir) if isfile(join(input_dir, f))]
 files = sorted(files)
@@ -20,7 +18,7 @@ files = sorted(files)
 model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)
 model.eval()
 
-ref = ["КО09ЕЕ97", "Е007ВР71", "Х215ЕР125", "В151РМ35", "В286ММ77", "Р104АВ142", "В606OO64", "С070НУ42"]
+ref = ["K009ЕЕ97", "Х215ЕР125", "В286ММ77"]
 
 for index, f in enumerate(files):
 
@@ -43,8 +41,6 @@ for index, f in enumerate(files):
 
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     text = pytesseract.image_to_string(img, lang='rus', config=custom_config).upper()
-
-    # text = reader.readtext(img_rgb)
 
     print(f)
     print(text)
