@@ -1,16 +1,17 @@
 import torch
 import cv2
+
 from os import listdir
 from os.path import isfile, join
 
-onlyfiles = [f for f in listdir('C:\\data\\test') if isfile(join('C:\\data\\test', f))]
+onlyfiles = [f for f in listdir('../utils/test') if isfile(join('../utils/test', f))]
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='runs/train/yolo_license_plates2/weights/best.pt')
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='../models/best.pt')
 model.eval()
 
 i = 0
 for p in onlyfiles:
-    img = cv2.imread('C:\\data\\test\\' + p)
+    img = cv2.imread('../utils/test' + p)
 
     results = model(img, size=640)
 
@@ -22,5 +23,5 @@ for p in onlyfiles:
     xmax = int(table.xmax.loc[0]) + 20
 
     roi = img[ymin:ymax, xmin:xmax]
-    cv2.imwrite('C:\\data\\plates\\' + f'{i}.jpg', roi)
+    cv2.imwrite('../utils/plates' + f'{i}.jpg', roi)
     i += 1

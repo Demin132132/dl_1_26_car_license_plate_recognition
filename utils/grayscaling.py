@@ -1,10 +1,13 @@
+import glob
+import os
+
 import cv2
-import os, glob
+
 from os import listdir
 from os.path import isfile, join
 
-path = '/data/plates'
-new_path = '/data/plates_gray'
+path = '../data/utils/plates'
+new_path = '../data/utils/plates_gray'
 
 files = list(filter(lambda f: isfile(join(path, f)), listdir(path)))
 for image in files:
