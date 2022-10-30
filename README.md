@@ -43,7 +43,7 @@ data представлен результат работы скрипта.
 Для обучения yolo v4 использовался фреймворк darknet, в директории models/yolo4 примеры файлов, генерируемых darknet.
 Обучение yolo v4:
 
-<p align="left"><img src="img/img.jpg" alt="detection" width="30%"></p>
+<p align="left"><img src="img/img.jpg" alt="detection" width="50%"></p>
 
 Обучение yolo v5 также производилось локально, код обучения представлен в ноутбуке в директории models.
 
