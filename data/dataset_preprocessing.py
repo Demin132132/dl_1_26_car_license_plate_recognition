@@ -2,7 +2,7 @@ import json
 import cv2
 import numpy as np
 
-path = '/data/'
+path = '../data/'
 
 f = open(path + 'train.json')
 data = json.load(f)

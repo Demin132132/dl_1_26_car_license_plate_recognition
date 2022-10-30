@@ -8,7 +8,6 @@ import fastwer
 
 
 input_dir = 'test/'
-output_dir = 'outputs/'
 model_path = 'models/best.pt'
 
 
@@ -39,8 +38,9 @@ for index, f in enumerate(files):
 
     custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789АВЕКМНОРСТУ'
 
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    text = pytesseract.image_to_string(img, lang='rus', config=custom_config).upper()
+    # new_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    new_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    text = pytesseract.image_to_string(new_img, lang='rus', config=custom_config).upper()
 
     print(f)
     print(text)
