@@ -1,33 +1,26 @@
-from os import listdir
-from os.path import isfile, join
-
 import torch
 import cv2
 import pytesseract
-import fastwer
 
 
-input_dir = 'test/'
-model_path = 'models/best.pt'
+INPUT_FILE = 'test/1.jpg'
+MODEL_PATH = 'models/best.pt'
 
 
-files = [f for f in listdir(input_dir) if isfile(join(input_dir, f))]
-files = sorted(files)
+def read_img(file_path):
+    img = cv2.imread(file_path)
+    return img
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)
-model.eval()
 
-ref = ["K009ЕЕ97", "Х215ЕР125", "В286ММ77"]
+def get_model(model_path):
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path)
+    model.eval()
+    return model
 
-for index, f in enumerate(files):
 
-    img = cv2.imread(input_dir + f)
-
+def inference(model, img):
     results = model(img, size=640)
-
     table = results.pandas().xyxy[0]
-
-    print(table)
 
     ymin = int(table.ymin.loc[0]) - 15
     xmin = int(table.xmin.loc[0]) - 20
@@ -38,15 +31,18 @@ for index, f in enumerate(files):
 
     custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789АВЕКМНОРСТУ'
 
-    # new_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     new_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     text = pytesseract.image_to_string(new_img, lang='rus', config=custom_config).upper()
 
-    print(f)
+    print(INPUT_FILE)
     print(text)
-    #print(ref[index])
 
-    cer = fastwer.score_sent(text, ref[index], char_level=True)
-    wer = fastwer.score_sent(text, ref[index], char_level=False)
 
-    print(cer, wer, "\n")
+def main():
+    model = get_model(MODEL_PATH)
+    img = read_img(INPUT_FILE)
+    inference(model, img)
+
+
+if __name__ == '__main__':
+    main()
